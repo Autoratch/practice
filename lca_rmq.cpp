@@ -6,7 +6,7 @@ const int M = 1 << 18;
 
 int n,q,sz;
 vector<int> adj[N],s;
-int f[N];
+int f[N],dist[N];
 
 struct node
 {
@@ -25,6 +25,7 @@ void dfs(int u,int p)
     for(int v : adj[u])
     {
         if(v==p) continue;
+        dist[v] = dist[u]+1;
         dfs(v,u);
         s.push_back(u);
     }
@@ -41,7 +42,7 @@ void build(int l,int r,int idx)
 
 node read(int l,int r,int idx,int x,int y)
 {
-    if(x>=r or y<=l){ node ret; ret.val = -1; ret.fi = INT_MAX; return ret; }
+    if(x>=r or y<=l){ node ret; ret.fi = INT_MAX; return ret; }
     if(x<=l and y>=r) return tree[idx];
     int m = (l+r)/2;
     return read(l,m,idx*2,x,y)+read(m+1,r,idx*2+1,x,y);
@@ -64,12 +65,15 @@ int main()
     dfs(1,1);
     sz = s.size();
     build(0,sz-1,1);
-    
+
     while(q--)
     {
         int a,b;
         cin >> a >> b;
         if(f[a]>f[b]) swap(a,b);
-        cout << read(0,sz-1,1,f[a]-1,f[b]-1).val << '\n';
+        cout << a << " -- " << b << '\n';
+        int lca = read(0,sz-1,1,f[a]-1,f[b]-1).val;
+        cout << "LCA : " << lca << '\n';
+        cout << "DIST : " << dist[a]+dist[b]-dist[lca]*2 << '\n';
     }
 }
