@@ -42,7 +42,7 @@ void build(int l,int r,int idx)
 
 node read(int l,int r,int idx,int x,int y)
 {
-    if(x>=r or y<=l){ node ret; ret.fi = INT_MAX; return ret; }
+    if(x>r or y<l){ node ret; ret.fi = INT_MAX; return ret; }
     if(x<=l and y>=r) return tree[idx];
     int m = (l+r)/2;
     return read(l,m,idx*2,x,y)+read(m+1,r,idx*2+1,x,y);
