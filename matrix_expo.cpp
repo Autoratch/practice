@@ -2,14 +2,15 @@
 using namespace std;
 
 const int N = 200;
+const int K = 30; // constraint about 2^30
 
 struct data
 {
     int t[N][N];
 };
 
-int n;
-data mtrx[32];
+int n,k; // n : size of matrix, k : power
+data mtrx[32],ans; // mtrx[i] keeps m^i, ans keeps answer which is intially identity matrix
 
 data mul(data *a,data *b)
 {
@@ -26,5 +27,12 @@ int main()
 {
     // build matrix that need to power and store in mtrx[0] => 2^0=1
 
-    for(int i = 1;i < 30;i++) mtrx[i] = mul(&mtrx[i-1],&mtrx[i-1]);
+    for(int i = 1;i < K;i++) mtrx[i] = mul(&mtrx[i-1],&mtrx[i-1]);
+
+    for(int i = 0;i < n;i++) ans.t[i][i] = 1;
+
+    for(int i = 0;i < K;i++) 
+    {
+        if((1<<i)&k) ans = mul(&m[i],&ans);
+    }
 }
