@@ -1,32 +1,35 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int N = 1e5 + 1;
+const int N = 1e5;
 
 int n,m;
 vector<int> adj[N];
-bool visited[N];
 int disc[N],low[N];
-int cnt;
+bool visited[N];
+int idx;
 set<int> ap;
-set<pair<int,int> > bridge;
+set<pair<int,int> > b;
 
-void tarjan(int u,int p)
+void dfs(int u,int p)
 {
     visited[u] = true;
-    low[u] = disc[u] = ++cnt;
+    low[u] = disc[u] = idx++;
     int ch = 0;
-    for(auto v : adj[u])
+    for(int v : adj[u])
     {
         if(!visited[v])
         {
             ch++;
-            tarjan(v,u);
+            dfs(v,u);
             low[u] = min(low[u],low[v]);
-            if((p and low[v]>=disc[u])or(!p and ch>1)) ap.insert(u);
-            if(low[v]>disc[u]) bridge.insert({u,v});
-        }       
-        else if(v!=p) low[u] = min(low[u],disc[v]);
+            if((p!=-1 and low[v]>=disc[u])or(p==-1 and ch>1)) ap.insert(u);
+            if(low[v]>disc[u]) b.insert({u,v});
+        }
+        else if(v!=p)
+        {
+            low[u] = min(low[u],disc[v]);
+        }
     }
 }
 
@@ -41,11 +44,13 @@ int main()
         int a,b;
         cin >> a >> b;
         adj[a].push_back(b);
+        adj[b].push_back(a);
     }
 
-    tarjan(1,0);
+    dfs(0,-1);
 
+    cout << ap.size() << '\n';
     for(int x : ap) cout << x << ' ';
-    cout << '\n' << '\n';
-    for(pair<int,int> x : bridge) cout << x.first << ' ' << x.second << '\n';
+    cout << '\n' << b.size() << '\n';
+    for(pair<int,int> x : b) cout << x.first << ' ' << x.second << '\n';
 }
