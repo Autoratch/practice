@@ -3,15 +3,13 @@ using namespace std;
 
 const int N = 1e5 + 1;
 
-int n,q,root;
+int n,q;
 int dp[21][N],lv[N];
 vector<int> adj[N];
-set<int> eaten;
 
 void dfs(int u,int p,int l)
 {
-    dp[0][u] = p;
-    lv[u] = l;
+    dp[0][u] = p,lv[u] = l;
     for(int v : adj[u]) dfs(v,u,l+1);
 }
 
@@ -30,18 +28,14 @@ int main()
 
     cin >> n;
 
-    for(int i = 1;i <= n;i++) eaten.insert(i);
     for(int i = 0;i < n-1;i++) 
     {
         int a,b;
         cin >> a >> b;
         adj[a].push_back(b);
-        eaten.erase(b);
     }
 
-    root = *eaten.begin();
-
-    dfs(root,0,1);
+    dfs(0,0,1);
 
     for(int i = 1;i <= 20;i++) for(int j = 1;j <= n;j++) dp[i][j] = dp[i-1][dp[i-1][j]];
 
