@@ -23,6 +23,8 @@ int va[N],vid[N];
 void dfs(int u,int p,int l)
 {
     sz[u] = 1,dp[0][u] = p,lv[u] = l;
+    int szp = sz[p];
+    sz[p] = 0;
     for(int i = 0;i < adj[u].size();i++) 
     {
         auto [d,v,id] = adj[u][i];
@@ -33,6 +35,7 @@ void dfs(int u,int p,int l)
         // make adj[u][0] to be the one with max subtree size
         // to easily get euler tour with hld connected together
     }
+    sz[p] = szp;
 }
 
 void hld(int u,int p)
@@ -148,3 +151,4 @@ int main()
         }
     }
 }
+
