@@ -34,7 +34,7 @@ void insert(pnode &t,pnode it)
     else if(it->prio>t->prio) split(t,it->l,it->r,it->val),t = it;
     else 
     {
-        if(it->val>=t->val) insert(t->r,it);
+        if(it->val>t->val) insert(t->r,it);
         else insert(t->l,it);
     }
     updt(t);
@@ -46,7 +46,7 @@ void erase(pnode &t,int key)
     else if(t->val==key){ pnode tmp = t; merge(t,t->l,t->r); free(tmp); }
     else
     {
-        if(key>=t->val) erase(t->r,key);
+        if(key>t->val) erase(t->r,key);
         else erase(t->l,key);
     }
     updt(t);
