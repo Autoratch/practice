@@ -12,6 +12,7 @@ struct data
 int n,k; // n : size of matrix, k : power
 data mtrx[32],ans; // mtrx[i] keeps m^i, ans keeps answer which is intially identity matrix
 
+// easy ver
 data mul(data *a,data *b)
 {
     data c;
@@ -23,12 +24,21 @@ data mul(data *a,data *b)
     return c;
 }
 
+// cooler ver
+void coolmul(data &a,data &b,data &c)
+{
+    for(int i = 0;i < n;i++) for(int j = 0;j < n;j++) for(int k = 0;k < n;k++) c.t[i][j]+=a.t[i][k]*b.t[k][j];   
+}
+
 int main()
 {
     // build matrix that need to power and store in mtrx[0] => 2^0=1
 
     for(int i = 1;i < K;i++) mtrx[i] = mul(&mtrx[i-1],&mtrx[i-1]);
 
+    // cooler ver
+    for(int i = 1;i < K;i++) mul(mtrx[i-1],mtrx[i-1],mtrx[i]);
+    
     for(int i = 0;i < n;i++) ans.t[i][i] = 1;
 
     for(int i = 0;i < K;i++) 
