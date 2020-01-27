@@ -87,9 +87,6 @@ void reverse(pnode &t,int x,int y)
     upd(t);
 }
 
-pnode treap;
-int n,q;
-
 int main()
 {
     srand(time(NULL));
