@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+// dp(i,j) = min{dp(i-1,k)+c(k,j)}
+//           k<=j
+
+const int N = 1e5;
+
+int dp[2][N];
+
+int c(int x,int y);
+
+void compute(int l,int r,int optl,int optr,int f)
+{
+    if(l>r) return;
+    int mid = (l+r)/2;
+    int val = INT_MAX,opt;
+    for(int k = optl;k <= min(optr,mid);k++)
+    {
+        int now = dp[f^1][k]+c(k,mid);
+        if(now<val) val = now,opt = k;
+    }
+    dp[f][mid] = val; // opt of k is opt
+    compute(l,mid-1,optl,opt,f);
+    compute(mid+1,r,opt,optr,f);
+}
+
+int main()
+{
+    // call compute(0,n-1,0,n-1) for m times, as 0 < i < m
+    // each time f would denote state space reduction
+}
