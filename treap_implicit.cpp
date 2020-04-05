@@ -23,7 +23,7 @@ void push(pnode t)
     upd(t);
 }
 
-void split(pnode t,pnode &l,pnode &r,int key) // there's "key" blocks assigning to l
+void split(pnode t,pnode &l,pnode &r,int key) // there're "key" blocks assigning to l
 {
     if(!t) return void(l = r = NULL);
     push(t);
