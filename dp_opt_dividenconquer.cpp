@@ -28,6 +28,7 @@ void compute(int l,int r,int optl,int optr,int f,int id)
 
 int main()
 {
-    // call compute(0,n-1,0,n-1) for m times, as 0 < i < m
+    // each time calling compute starting with i instead of 1 makes it faster
+    // call compute(i,n-1,0,n-1) for m times, as 0 < i < m
     // each time f would denote state space reduction
 }
