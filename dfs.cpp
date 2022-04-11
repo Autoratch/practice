@@ -9,7 +9,7 @@ bool visited[N];
 
 void dfs(int u,int p)
 {
-    if(visited[u]) continue;
+    if(visited[u]) return;
     visited[u] = true;
     cout << u << ' ';
     for(int v : adj[u]) if(v!=p)
