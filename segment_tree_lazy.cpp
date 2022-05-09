@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define endl '\n'
 
 const int N = 1 << 17;
 
@@ -24,7 +23,7 @@ void build(int l,int r,int idx)
 
 void update(int l,int r,int idx,int x,int y,int val)
 {
-    if(x<l or x>r) return;
+    if(x>r or y<l) return;
     pushlz(l,r,idx);
     if(x<=l and y>=r)
     {
