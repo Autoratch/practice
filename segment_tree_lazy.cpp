@@ -11,6 +11,7 @@ void pushlz(int l,int r,int idx)
     s[idx]+=lz[idx];
     if(l!=r) lz[idx*2]+=lz[idx],lz[idx*2+1]+=lz[idx];
     lz[idx] = 0;
+}
 
 void build(int l,int r,int idx)
 {
