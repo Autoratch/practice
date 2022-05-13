@@ -33,8 +33,8 @@ void update(int l,int r,int idx,int x,int y,int val)
         return;
     }
     int m = (l+r)/2;
-    update(l,m,idx*2,x,val);
-    update(m+1,r,idx*2+1,x,val);
+    update(l,m,idx*2,x,y,val);
+    update(m+1,r,idx*2+1,x,y,val);
     s[idx] = min(s[idx*2],s[idx*2+1]);
 }
 
